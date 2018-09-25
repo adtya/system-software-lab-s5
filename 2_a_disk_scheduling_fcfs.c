@@ -1,6 +1,7 @@
 /* FSFS Disk Scheduling Algorithm
  */
 #include<stdio.h>
+#include<stdlib.h>
 
 void main() {
 	int n;
@@ -9,15 +10,16 @@ void main() {
 	int queue[n] /* Array for the queue */;
 	int seek = 0; /* for total seek */;
 	int head; // for head position
-	int i, j; // control variables for loops
-
+	int i; // control variable for various loops
+	
+	printf("Enter the locations to be accessed: ");
 	for(i = 1;i < n; i++) {
 		scanf("%d", &queue[i]);
 	}
 	printf("Enter the initial head position: ");
 	scanf("%d", &head);
 	queue[0] = head;
-	for(j = 0; j <= n-1; j++) {
+	for(i = 0; i <= n-1; i++) {
 		seek += abs(queue[i] - queue[i-1]);
 	}
 	printf("Total seek time: %d", seek);
