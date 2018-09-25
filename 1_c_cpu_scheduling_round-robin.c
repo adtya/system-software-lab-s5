@@ -6,7 +6,10 @@
 void main() {
 	int n; // Number of processes
         printf("Enter the number of processes: ");
-        scanf("%d",&n);
+        scanf("%d", &n);
+	int quantum; // time quantum for round robin
+	printf("Enter the time quantum: ");
+	scanf("%d", &quantum);
         int bt[n]; // Array storing burst times (of size n)
 	int rem_bt[n]; // Array for storing remaining burst time (of size n)
         int wt[n]; // Array storing wait times (of size n)
@@ -14,27 +17,28 @@ void main() {
         int awt = 0 /* Average waiting time */, att = 0 /* Average turnaround time */;
         int i; // A control variable for various loops
 	int time = 0; // Time elapsed
-	int quantum = 5; // Time quantum for round robin
 	int flag = 0; // flag to keep track of terminalted proccesses
 
         printf("Enter Burst times for the processes:\n");
-        for(i = 0; i < n; i ++) {
+        for(i = 0; i < n; i++) {
                 scanf("%d", &bt[i]);
 		rem_bt[i] = bt[i];
 		wt[i] = 0;
         }
 	
 	for(i = 0; i < n; i ++) {
-		if(wt[i] == 0) { // If the wait time is zero, set it add I times the quantum to it.
+		if(wt[i] == 0) { // If the wait time is zero, set it add i times the quantum to it.
 			wt[i] = wt[i] + (i * quantum);
 		}
 		if(rem_bt[i] != 0) { // If the process is not already complete
 			if(rem_bt[i] > quantum) { // If the remaining burst time is greater than quantum
+				wt[i] += time - (wt[i] + quantum); // calculate new wait time
 				time = time + quantum; // add qauntum to elapsed time
 				rem_bt[i] -= quantum; // decrease remaining time by quantum;
 			}
 			if( (rem_bt[i] < quantum) && (rem_bt[i] != 0) ) {
 			// If the remaining burst time is less than quantum and not equal to zero
+				wt[i] += time - (wt[i] + quantum); // calculate new wait time
 				time += rem_bt[i]; // add process's remaining time to elapsed time;
 				rem_bt[i] = 0; // set remaining time as zero
 			}
