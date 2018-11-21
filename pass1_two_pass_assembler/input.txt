@@ -3,7 +3,7 @@ copy    START   1000
 -       ADD     ONE
 -       SUB     TWO
 -       STA     BETA
-ALPHA   BYTE    C'KLNCE
+ALPHA   BYTE    C'WORLD
 ONE     RESB    2
 TWO     WORD    5
 BETA    RESW    1
